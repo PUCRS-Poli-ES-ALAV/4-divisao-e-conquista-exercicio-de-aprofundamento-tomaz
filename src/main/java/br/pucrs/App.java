@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class App
 {
+    private static long iterations = 0;
     public static void merge(
             int[] a, int[] l, int[] r, int left, int right) {
 
@@ -40,6 +41,25 @@ public class App
         mergeSort(r, n - mid);
 
         merge(a, l, r, mid, n - mid);
+    }
+    public static long maxVal1(long[] A, int n) {
+        long max = A[0];
+        for (int i = 1; i < n; i++) {
+            iterations++;
+            if (A[i] > max) {
+                max = A[i];
+            }
+        }
+        return max;
+    }
+    public static long maxVal2(long[] A, int init, int end) {
+        iterations++;
+        if (end - init <= 0) return A[init];
+        if (end - init == 1) return Math.max(A[init], A[end]);
+        int m = (init + end) / 2;
+        long v1 = maxVal2(A, init, m);
+        long v2 = maxVal2(A, m + 1, end);
+        return Math.max(v1, v2);
     }
     public static void main(String[] args) {
         int[] sizes = {32, 2048, 1_048_576};
