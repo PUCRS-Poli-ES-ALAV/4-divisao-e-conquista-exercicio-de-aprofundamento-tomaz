@@ -41,44 +41,26 @@ public class App
 
         merge(a, l, r, mid, n - mid);
     }
-    private static int[] rng(int n){
-        int[] a = new int[n];
+    public static void main(String[] args) {
+        int[] sizes = {32, 2048, 1_048_576};
+        Random random = new Random();
 
-        for(int i=n-1; i>0 ;i--){
-            a[i]= i;
-        }
-        return a;
-    }
-
-    public static long maxVal1(long[] A, int n) {
-        long max = A[0];
-        for (int i = 1; i < n; i++) {
-            iterations++;
-            if (A[i] > max) {
-                max = A[i];
+        for (int size : sizes) {
+            long[] array = new long[size];
+            for (int i = 0; i < size; i++) {
+                array[i] = random.nextLong();
             }
+
+            iterations = 0;
+            long startTime = System.nanoTime();
+            long max = maxVal1(array, size);
+            long endTime = System.nanoTime();
+
+            System.out.println("Tamanho: " + size);
+            System.out.println("Iterações: " + iterations);
+            System.out.println("Tempo (ms): " + (endTime - startTime) / 1_000_000.0);
+            System.out.println("Máximo: " + max);
+            System.out.println();
         }
-        return max;
-    }
-    public static void main( String[] args )
-    {
-        int[] a = new int[32];
-        int[] b = new int[2042];
-        int[] c = new int[1048576];
-        a = rng(32);
-        b = rng(2042);
-        c = rng(1048576);
-        System.out.println(a);
-        mergeSort(a,32);
-
-         mergeSort(b,2042);
-
-         mergeSort(c,1048576);
-
-
-        System.out.println(a);
-
-
-
     }
 }
