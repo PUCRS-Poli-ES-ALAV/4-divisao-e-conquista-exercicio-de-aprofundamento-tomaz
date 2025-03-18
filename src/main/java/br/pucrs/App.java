@@ -61,6 +61,23 @@ public class App
         long v2 = maxVal2(A, m + 1, end);
         return Math.max(v1, v2);
     }
+    public static long multiply(long x, long y, int n) {
+        iterations++;
+        if (n == 1) return x * y;
+
+        int m = (int) Math.ceil(n / 2.0);
+        long a = x >> m;
+        long b = x & ((1L << m) - 1);
+        long c = y >> m;
+        long d = y & ((1L << m) - 1);
+
+        long e = multiply(a, c, m);
+        long f = multiply(b, d, m);
+        long g = multiply(b, c, m);
+        long h = multiply(a, d, m);
+
+        return (e << (2 * m)) + ((g + h) << m) + f;
+    }
     public static void main(String[] args) {
         int[] sizes = {32, 2048, 1_048_576};
         Random random = new Random();
